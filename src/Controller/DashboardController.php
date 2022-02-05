@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CategorieRepository;
 use App\Repository\ClientRepository;
 use App\Repository\ProduitRepository;
 use App\Repository\CommandeRepository;
@@ -14,24 +15,28 @@ class DashboardController extends AbstractController
     protected ClientRepository $ClientRepository;
     protected ProduitRepository $ProduitRepository;
     protected CommandeRepository $CommandeRepository;
+    protected CategorieRepository $CategorieRepository;
 
     public function __construct(
         ClientRepository $ClientRepository,
         ProduitRepository $ProduitRepository,
         CommandeRepository $CommandeRepository,
+        CategorieRepository $categorieRepository
     ) {
         $this->ProduitRepository = $ProduitRepository;
         $this->CommandeRepository = $CommandeRepository;
         $this->ClientRepository = $ClientRepository;
+        $this->CategorieRepository = $categorieRepository;
     }
-    #[Route('/dashboard', name: 'dashboard')]
+    #[Route('/', name: 'dashboard')]
     public function index(): Response
     {
         return $this->render('dashboard/index.html.twig', [
             'controller_name' => 'DashboardController',
             'countClients' => $this->ClientRepository->findAll(),
             'countProduits' => $this->ProduitRepository->findAll(),
-            'countCommandes' => $this->CommandeRepository->findAll()
+            'countCommandes' => $this->CommandeRepository->findAll(),
+            'countCategories' => $this->CategorieRepository->findAll()
         ]);
     }
 }

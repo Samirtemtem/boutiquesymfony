@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DashboardController!
+{% endblock %}
+{% form_theme categorie_form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+	{% for message in app.flashes("success") %}
+		<div class="alert alert-success">
+			{{message}}
+		</div>
+
+	{% endfor %}
+	{% if Error is defined %}
+
+		<div class="example-wrapper">
+
+			<ul>
+				<li>
+					categorie déja existe !
+				</li>
+			</ul>
+		</div>
+	{% endif %}
+
+
+	{{ form_start(categorie_form) }}
+
+
+	<!-- <form method="POST" -->
+	{{ form_widget(categorie_form)}}
+	{{ form_end(categorie_form) }}
+	<!-- </form> -->
+{% endblock %}

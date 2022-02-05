@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ClientController!
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+	<h1>Produits:
+	</h1>
+	<a href="{{ path('ajouterproduit')}}">Ajouter un produit</a>
+</div>
+{% for message in app.flashes("success") %}
+	<div class="alert alert-success">
+		{{message}}
+	</div>
+
+{% endfor %}
+
+<div class="container">
+	<table class="table" border="1">
+		<tr>
+			<div class="row">
+				<td>
+					<div class="col-">
+						ID
+					</div>
+				</td>
+				<td>
+					<div class="col-">
+
+						Nom Produit</div>
+				</td>
+				<td>
+					<div class="col-">
+
+						Description long
+					</div>
+				</td>
+				<td>
+					<div class="col-">
+
+						Description courte
+					</div>
+				</td>
+				<td>
+					<div class="col-">
+						Categorie
+					</div>
+				</td>
+				<td>
+					<div class="col-">
+						Options
+					</div>
+				</td>
+
+
+			</div>
+		</tr>
+	</td>
+</tr>
+
+{% for produit in produits %}
+	<tr>
+		<div class="row">
+			<td>
+				<div class="col-">
+					{{produit.getId()}}
+				</div>
+			</td>
+			<td>
+
+				<div class="col-">
+					{{produit.getNom()}}</div>
+			</td>
+			<td>
+
+				<div class="col-">
+					{{produit.getDescLong()}}</div>
+			</td>
+			<td>
+
+				<div class="col-">
+					{{produit.getDescCourt()}}</div>
+			</td>
+			<td>
+
+				<div class="col-">
+					{{produit.getCategorie().getNom()}}</div>
+			</td>
+
+			<td>
+				<div class="col-x">
+
+					<a href="{{ path('deleteproduit', {'id': produit.getId()}) }}">Supprimer</a>
+
+					<br>
+					<a href="{{ path('modifyproduit', {'id': produit.getId()}) }}">modifier</a>
+
+
+				</div>
+			</td>
+
+
+		</div>
+	</tr>
+</td></tr>{% endfor %}</table></div>{% endblock %}

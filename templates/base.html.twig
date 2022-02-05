@@ -3,7 +3,133 @@
 	<head>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Poppins|Montserrat:wght@200;300;400;500;600;700;800;900 &display=swap');
 
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+				text-decoration: none;
+				list-style: none;
+				border: none;
+				transition: .3 linear;
+			}
+			body,
+			button {
+				font-family: "Poppins", sans-serif;
+				font-size: 1rem;
+				font-weight: 500;
+				letter-spacing: 2px;
+			}
+
+			section {
+				height: 100vh;
+			}
+			section:nth-of-type(odd) {
+				color: black;
+				background: f8f8f8;
+			}
+
+			section:nth-of-type(even) {
+				color: rgba(255, 255, 255, 0.8);
+				background: rgb(0, 0, 0);
+			}
+			section .content {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 2rem 9%;
+				font-size: 4rem;
+			}
+			#header {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 1rem 9%;
+				background: hsla(230, 8%, 15%, 0.9);
+				backdrop-filter: saturate(180%) blur(16px);
+				-wwbkit-backdrop-filter: saturate(180%) blur(16px);
+				box-shadow: 0 6px 4px hsla(0, 4%, 15%, 0.2);
+			}
+
+			.logo {
+				color: aliceblue;
+				font-size: 1.3rem;
+				cursor: pointer;
+			}
+			.logo:hover {
+				color: hsl(29, 72%, 62%);
+			}
+
+
+			.navbar li {
+				display: inline-block;
+				padding-right: 3rem;
+			}
+
+			.navbar li a {
+				position: relative !important;
+				color: hsl(195, 12%, 94%, 0.7);
+				transition: all 0.3s ease 0.1s;
+			}
+
+			.navbar li a:hover {
+				color: #0088a9;
+				color: hsla(195, 12%, 100%, 0.9);
+			}
+			nav ul li a::before,
+			nav ul li a::after {
+				content: "";
+				position: absolute;
+				bottom: -8px;
+				right: 0;
+				left: auto;
+				width: 0;
+				height: 3px;
+			}
+
+			nav ul li a::before {
+				background-color: #235aa6;
+				transition: all 0.25s cubic-bezier(0.694, 0.048, 0.335, 1) 0.15s;
+			}
+
+			nav ul li a::after {
+				background-color: #f25757;
+				transition: all 0.25s cubic-bezier(0.694, 0.048, 0.335, 1);
+			}
+
+			nav ul li a:hover::after,
+			nav ul li a:hover::before {
+				width: 100%;
+				left: 0;
+			}
+
+
+			button[class=btn-contact] {
+				position: absolute;
+				right: 9%;
+				top: 50%;
+				transform: translateY(-50%);
+				padding: 9px 25px;
+				color: #edf0f1;
+				background-color: rgba(0, 136, 169, 1);
+				border-radius: 50px;
+				cursor: pointer;
+				transition: all 0.3s ease 0s;
+			}
+
+			button[class=btn-contact]:hover {
+				background-color: rgba(64, 82, 90, 0.452);
+				color: aquamarine;
+			}
+		</style>
 		<meta charset="UTF-8">
 		<title>
 			{% block title %}Welcome!
@@ -21,6 +147,36 @@
 		{% endblock %}
 	</head>
 	<body>
+
+		{% block navbar%}
+			<header id='header' style="position:relative;">
+
+				<div class='logo'>Boutique</div>
+				<nav>
+					<ul class='navbar'>
+						<li>
+							<a href="{{ path('dashboard') }}">Acceuil</a>
+
+						</li>
+						<li>
+							<a href="{{ path('client') }}">Clients</a>
+
+						</li>
+						<li>
+							<a href="{{ path('produit') }}">Produits</a>
+
+						</li>
+						<li>
+							<a href="{{ path('categorie') }}">Categories</a>
+
+
+						</li>
+					</ul>
+				</nav>
+			</header>
+
+
+		{% endblock %}
 		{% block body %}{% endblock %}
 	</body>
 </html>

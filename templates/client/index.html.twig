@@ -1,0 +1,136 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ClientController!
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+	<h1>Clients:
+	</h1>
+	<a href="{{ path('ajouterclient')}}">Ajouter un client</a>
+</div>
+{% for message in app.flashes("success") %}
+	<div class="alert alert-success">
+		{{message}}
+	</div>
+
+{% endfor %}
+{% if Error is defined %}
+
+	<div class="example-wrapper">
+
+		<ul>
+			<li>
+				{{ Error }}
+			</li>
+		</ul>
+	</div>
+{% endif %}
+
+
+<div class="container">
+	<table class="table" border="1">
+		<tr>
+			<div class="row">
+				<td>
+					<div class="col-">
+						ID
+					</div>
+				</td>
+				<td>
+
+					<div class="col-">
+						CIN</div>
+				</td>
+				<td>
+					<div class="col-">
+
+						Nom</div>
+				</td>
+				<td>
+					<div class="col-">
+
+						Prenom</div>
+				</td>
+				<td>
+					<div class="col-">
+
+						Date de naissance</div>
+				</td>
+				<td>
+					<div class="col-">
+
+						Email</div>
+				</td>
+				<td>
+					<div class="col-">
+
+						Numéro de telephone</div>
+				</td>
+				<td>
+					<div class="col-x">
+
+						Options
+
+					</div>
+				</td>
+
+			</div>
+		</tr>
+	</td>
+</tr>
+
+{% for client in clients %}
+	<tr>
+		<div class="row">
+			<td>
+				<div class="col-">
+					{{client.getId()}}
+				</div>
+			</td>
+			<td>
+
+				<div class="col-">
+					{{client.getCIN()}}</div>
+			</td>
+			<td>
+				<div class="col-">
+
+					{{client.getNom()}}</div>
+			</td>
+			<td>
+				<div class="col-">
+
+					{{client.getPrenom()}}</div>
+			</td>
+			<td>
+				<div class="col-">
+
+					{{client.getDateNaissance()|date('Y-m-d')}}</div>
+			</td>
+			<td>
+				<div class="col-">
+
+					{{client.getEmail()}}</div>
+			</td>
+			<td>
+				<div class="col-">
+
+					{{client.getTelephone()}}</div>
+			</td>
+			<td>
+				<div class="col-x">
+
+					<a href="{{ path('deleteclient', {'id': client.getId()}) }}">Supprimer</a>
+
+					<br>
+					<a href="{{ path('modifyclient', {'id': client.getId()}) }}">modifier</a>
+
+
+				</div>
+			</td>
+
+		</div>
+	</tr>
+</td></tr>{% endfor %}</table></div>{% endblock %}
