@@ -23,6 +23,9 @@ class Adresse
     #[ORM\Column(type: 'boolean')]
     private $ParDefaut;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $adresse;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Adresse
     public function setParDefaut(bool $ParDefaut): self
     {
         $this->ParDefaut = $ParDefaut;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): self
+    {
+        $this->adresse = $adresse;
 
         return $this;
     }
