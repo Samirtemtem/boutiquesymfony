@@ -8,7 +8,12 @@
 <div class="container">
 	<h1>Produits:
 	</h1>
-	<a href="{{ path('ajouterproduit')}}">Ajouter un produit</a>
+	<div class="btn btn-info">
+
+
+		<a href="{{ path('ajouterproduit')}}" style="text-decoration:none;color:white;">Ajouter un produit</a>
+
+	</div>
 </div>
 {% for message in app.flashes("success") %}
 	<div class="alert alert-success">

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Produit;
+use App\Form\CategorieFormType;
 use App\Form\ProduitFormType;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -85,7 +86,7 @@ class ProduitController extends AbstractController
         $routeParams = $request->attributes->get('_route_params');
         $id = $routeParams['id'];
         $produit = $this->ProduitRepository->find($id);
-        $form = $this->createForm(ClientFormType::class, $produit);
+        $form = $this->createForm(ProduitFormType::class, $produit);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $manager = $doctrine->getManager();

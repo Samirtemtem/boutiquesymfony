@@ -8,8 +8,14 @@
 <div class="container">
 	<h1>Clients:
 	</h1>
-	<a href="{{ path('ajouterclient')}}">Ajouter un client</a>
+	<div class="btn btn-info">
+
+		<a href="{{ path('ajouterclient')}}" style="text-decoration:none;color:white;">Ajouter un client</a>
+	</div>
+
 </div>
+<br>
+
 {% for message in app.flashes("success") %}
 	<div class="alert alert-success">
 		{{message}}

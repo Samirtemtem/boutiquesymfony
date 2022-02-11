@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier Client
+	{{produit_nom}}
+{% endblock %}
+{% form_theme produit_form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+	{{ form_start(produit_form) }}
+
+
+	<!-- <form method="POST" -->
+	{{ form_widget(produit_form)}}
+	{{ form_end(produit_form) }}
+	<!-- </form> -->
+{% endblock %}

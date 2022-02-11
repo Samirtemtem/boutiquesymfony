@@ -50,11 +50,9 @@ class CategorieController extends AbstractController
             $manager->persist($categorie);
             $manager->flush();
             $this->addFlash("success", "Nouvelle categorie" .   $categorie->getNom()  . " a été crée sous l'id " .   $categorie->getid());
+            return ($this->redirectToRoute("categorie"));
 
-            return new Response($this->render('categorie/modifier.html.twig', [
-                'categorie_ajout' => "Nouvelle categorie " . $categorie->getNom() . " a été crée sous l'id " . $categorie->getid(),
-                'categorie_form' => $form->createView()
-            ]));
+            
         }
         return new Response($this->render('categorie/modifier.html.twig', [
             'categorie_form' => $form->createView()
@@ -67,10 +65,11 @@ class CategorieController extends AbstractController
         $routeParams = $request->attributes->get('_route_params');
         $id = $routeParams['id'];
         $categorie = $this->CategorieRepository->find($id);
+
         $entityManager = $doctrine->getManager();
         $entityManager->remove($categorie);
         $entityManager->flush();
-        return ($this->index());
+        return ($this->redirectToRoute("categorie"));
     }
     #[Route('categorie/modify/{id}', name: 'modifycategorie')]
     /*
@@ -80,25 +79,23 @@ class CategorieController extends AbstractController
  * *
  * *
  */
-    public function modify(Request $request, EntityManagerInterface $manager)
+
+    public function modify(Request $request, ManagerRegistry $doctrine)
     {
         $routeParams = $request->attributes->get('_route_params');
         $id = $routeParams['id'];
         $categorie = $this->CategorieRepository->find($id);
-        // $categorie->setNom();
         $form = $this->createForm(CategorieFormType::class, $categorie);
-        if ($form->isSubmitted() && $form->isValid()) {
-            dd($request->request->get("categorie_form[Nom]"));
-            $manager->persist($request);
-            $manager->flush();
-            $this->addFlash("succes", "Categorie avec ID" . $categorie->getNom() . "a été modifié");
-            return new Response($this->render('categorie/index.html.twig', [
-                'categorie_modifiee' => "Categorie avec ID" . $categorie->getNom() . "a été modifié"
-            ]));
-        }
         $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $doctrine->getManager();
+            $manager->flush();
+            return
+                $this->redirectToRoute('categorie');
+        }
         return new Response($this->render('categorie/modifier.html.twig', [
             'categorie_form' => $form->createView(),
+            'categorie_nom' => $categorie->getNom()
         ]));
     }
 }

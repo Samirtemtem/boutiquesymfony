@@ -69,7 +69,6 @@ class ClientController extends AbstractController
     #[Route('/client/ajouter', name: 'ajouterclient')]
     public function add(Request $request, EntityManagerInterface $manager): Response
     {
-        $clients = $this->ClientRepository->findAll();
         $client = new Client();
         $form = $this->createForm(ClientFormType::class, $client);
         $form->handleRequest($request);
@@ -79,13 +78,14 @@ class ClientController extends AbstractController
                 return new Response($this->render(
                     'client/index.html.twig',
                     [
-                        "Error" => "client deja existe",     "client_form" => $form->createView(),
-                        "clients" => $clients
+                        "Error" => "client deja existe",     "client_form" => $form->createView()
                     ]
                 ));
             }
             $manager->persist($client);
             $manager->flush();
+            $clients = $this->ClientRepository->findAll();
+
             $this->addFlash("success", "Nouveau client " . $client->getNom() . " a été crée sous l'id " . $client->getid());
             return new Response($this->render('client/index.html.twig', [
                 'client_form' => $form->createView(),
