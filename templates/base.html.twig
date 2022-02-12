@@ -147,39 +147,62 @@
 		{% endblock %}
 	</head>
 	<body>
-
 		{% block navbar%}
-			<header id='header' style="position:relative;">
+			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
-				<div class='logo'>Boutique</div>
-				<nav>
-					<ul class='navbar'>
-						<li>
-							<a href="{{ path('dashboard') }}">Acceuil</a>
+				<header id='header' style="position:relative;">
 
-						</li>
-						<li>
-							<a href="{{ path('client') }}">Clients</a>
+					<div class='logo'>Boutique</div>
+					<nav>
+						<ul class='navbar'>
+							<li>
+								<a href="{{ path('dashboard') }}">Acceuil</a>
 
-						</li>
-						<li>
-							<a href="{{ path('produit') }}">Produits</a>
+							</li>
+							<li>
+								<a href="{{ path('client') }}">Clients</a>
 
-						</li>
-						<li>
-							<a href="{{ path('categorie') }}">Categories</a>
+							</li>
+							<li>
+								<a href="{{ path('produit') }}">Produits</a>
+
+							</li>
+							<li>
+								<a href="{{ path('categorie') }}">Categories</a>
 
 
-						</li>
-					</ul>
-				</nav>
-			</header>
+							</li>
+							<li>
+								<a href="{{ path('commande') }}">Commandes</a>
 
-			<br>
-			<br>
+
+							</li>
+
+						</ul>
+					</nav>
+					<a href="{{path('app_logout')}}">Déconnecter</a>
+				</header>
+
+				<br>
+				<br>
+			{% endif %}
+			{% if not(is_granted('IS_AUTHENTICATED_FULLY')) %}
+				<header id='header' style="position:relative;">
+					<nav>
+						<h1 style="color:white;">
+							Connecter pour voir cette menu !</h1>
+					</nav>
+				</header>
+
+				<br>
+				<br>
+			{% endif %}
+
 		{% endblock %}
+
+
 		<div class="container"> {% block body %}{% endblock %}
 			</div>
 		</body>
 	</html>
-</body></html>
+</body></html></body></html></body></html>
