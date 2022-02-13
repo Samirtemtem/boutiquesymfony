@@ -16,7 +16,7 @@ class Categorie
     #[ORM\Column(type: 'string', length: 30)]
     private $Nom;
 
-    #[ORM\OneToOne(mappedBy: 'Categorie', targetEntity: Produit::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'Categorie', targetEntity: Produit::class)]
     private $Produits;
 
     public function getId(): ?int

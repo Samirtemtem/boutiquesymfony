@@ -22,7 +22,7 @@ class ClientController extends AbstractController
         $this->ClientRepository = $ClientRepository;
     }
 
-    #[Route('/client', name: 'client')]
+    #[Route('/admin/client', name: 'client')]
 
     public function index(): Response
     {
@@ -32,7 +32,7 @@ class ClientController extends AbstractController
             'clients' => $clients
         ]);
     }
-    #[Route('client/delete/{id}', name: 'deleteclient')]
+    #[Route('/admin/client/delete/{id}', name: 'deleteclient')]
 
     public function delete(Request $request, ManagerRegistry $doctrine)
     {
@@ -45,7 +45,7 @@ class ClientController extends AbstractController
         return ($this->index());
     }
 
-    #[Route('client/modify/{id}', name: 'modifyclient')]
+    #[Route('/admin/client/modify/{id}', name: 'modifyclient')]
 
     public function modify(Request $request, ManagerRegistry $doctrine)
     {
@@ -66,7 +66,7 @@ class ClientController extends AbstractController
         ]));
     }
 
-    #[Route('/client/ajouter', name: 'ajouterclient')]
+    #[Route('/admin/client/ajouter', name: 'ajouterclient')]
     public function add(Request $request, EntityManagerInterface $manager): Response
     {
         $client = new Client();

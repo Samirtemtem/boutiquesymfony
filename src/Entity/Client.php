@@ -181,4 +181,8 @@ class Client
 
         return $this;
     }
+    function __toString()
+    {
+        return ($this->getCIN());
+    }
 }

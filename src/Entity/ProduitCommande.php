@@ -94,4 +94,8 @@ class ProduitCommande
 
         return $this;
     }
+    function __toString()
+    {
+        return ($this->getId());
+    }
 }

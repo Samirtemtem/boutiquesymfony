@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Produit;
-use App\Form\CategorieFormType;
 use App\Form\ProduitFormType;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,7 +22,7 @@ class ProduitController extends AbstractController
         $this->ProduitRepository = $ProduitRepository;
     }
 
-    #[Route('/produit', name: 'produit')]
+    #[Route('admin/produit', name: 'produit')]
     public function index(): Response
     {
         $produits = $this->ProduitRepository->findAll();
@@ -33,7 +32,7 @@ class ProduitController extends AbstractController
         ]);
     }
 
-    #[Route('/produit/ajouter', name: 'ajouterproduit')]
+    #[Route('admin/produit/ajouter', name: 'ajouterproduit')]
     public function add(Request $request, EntityManagerInterface $manager): Response
     {
         $produits = $this->ProduitRepository->findAll();
@@ -66,7 +65,7 @@ class ProduitController extends AbstractController
     }
 
 
-    #[Route('produit/delete/{id}', name: 'deleteproduit')]
+    #[Route('admin/produit/delete/{id}', name: 'deleteproduit')]
 
     public function delete(Request $request, ManagerRegistry $doctrine)
     {
@@ -79,13 +78,13 @@ class ProduitController extends AbstractController
         return ($this->index());
     }
 
-    #[Route('produit/modify/{id}', name: 'modifyproduit')]
+    #[Route('/admin/produit/modify/{id}', name: 'modifyproduit')]
 
-    public function modify(Request $request, ManagerRegistry $doctrine)
+    public function modify(Produit $id, Request $request, ManagerRegistry $doctrine)
     {
         $routeParams = $request->attributes->get('_route_params');
-        $id = $routeParams['id'];
-        $produit = $this->ProduitRepository->find($id);
+        // $id = $routeParams['id'];
+        $produit = $id;
         $form = $this->createForm(ProduitFormType::class, $produit);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

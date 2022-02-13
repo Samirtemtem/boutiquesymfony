@@ -24,7 +24,7 @@ class Produit
     #[ORM\Column(type: 'string', length: 255)]
     private $DescLong;
 
-    #[ORM\OneToOne(inversedBy: 'Produits', targetEntity: Categorie::class, cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'Produits', targetEntity: Categorie::class)]
     #[ORM\JoinColumn(nullable: false)]
     private $Categorie;
 

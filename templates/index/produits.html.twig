@@ -1,0 +1,167 @@
+{% block title %}Produits
+{% endblock %}
+
+{% block body %}
+	<style>
+		body {
+			font-family: avalonregular, HelveticaNeue-Light, "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial;
+			letter-spacing: 0.1em;
+		}
+
+		h2 {
+			display: block;
+			text-align: center;
+			margin-bottom: 0.5rem;
+			padding: 2rem;
+			color: #6097a9;
+		}
+
+		.categories {
+			background-color: #f1f1f1;
+		}
+
+		.categories {
+			text-align: center;
+		}
+
+		.categories ul {
+			list-style: none;
+			display: block;
+			list-style-type: disc;
+			margin-block-start: 1em;
+			margin-block-end: 1em;
+			margin-inline-start: 0;
+			margin-inline-end: 0;
+			padding-inline-start: 0;
+			width: 50%;
+			margin: auto;
+		}
+
+		#categ1 {
+			background-image: url('https://www.dropbox.com/s/sz7d3pv0anrioxg/handmade-4926871_640.jpg?raw=1');
+		}
+
+		#categ2 {
+			background-image: url('https://www.dropbox.com/s/a611a08nsmx0c9a/22.jpg?raw=1');
+		}
+
+		.slidupCont {
+			position: relative;
+			height: 25vh;
+		}
+
+		.categories li {
+			width: 19vw;
+			height: 25vh;
+			margin: auto 15px 2em;
+			padding: 0;
+			display: inline-block;
+			box-sizing: border-box;
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-color: #ca938f;
+			background-position: center right;
+			border-bottom: 5px solid rgb(54, 118, 159);
+			overflow: hidden;
+			transition: all 0.5s;
+		}
+
+		.categories a {
+			text-decoration: none;
+		}
+
+		.categories a:hover {
+			text-decoration: none;
+		}
+
+		.cont-txt h3 {
+			text-align: center;
+			vertical-align: middle;
+			display: block;
+			background: transparent;
+			text-decoration: none;
+			padding: 15px 15px 20px;
+			transition: color 0.3s ease-out;
+		}
+
+		.cont-txt {
+			z-index: 5;
+			position: inherit;
+		}
+
+		.cont-txt h3:hover {
+			-ms-transform: scale(1.1);
+			-moz-transform: scale(1.1);
+			-webkit-transform: scale(1.1);
+			-o-transform: scale(1.1);
+			transform: scale(1.1);
+		}
+
+
+		/* //// Default effect: Slide from Top //// */
+
+		.buttonfx {
+			color: #313030;
+			outline: none;
+			background: transparent;
+			border: none;
+			border-bottom: 4px solid #eee;
+			text-transform: uppercase;
+			font: bold 16px 'Bitter', sans-serif;
+			line-height: 2;
+			position: relative;
+			display: inline-block;
+			margin-bottom: 20px;
+			cursor: pointer;
+			text-decoration: none;
+			overflow: hidden;
+			transition: all 0.5s;
+		}
+
+		.buttonfx:before,
+		.buttonfx:after {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			height: 100%;
+			background: rgba(53, 102, 111, 0.75);
+			z-index: 1;
+			transform: translate3D(0, 100%, 0);
+			transition: all 0.5s;
+		}
+
+		.buttonfx:before {
+			z-index: -2;
+			transform: translate3D(0, 0, 0);
+		}
+
+		.buttonfx:hover {
+			color: white;
+			font-weight: bold;
+		}
+
+		.buttonfx:hover:after {
+			transform: translate3D(0, 0, 0);
+			transition: all 0.5s;
+		}
+	</style>
+	<section class="categories">
+		<h2>Shop By Category</h2>
+		<ul>
+			{% for produit in produits %}
+				<a href=" {{ path('afficherproduits', {'id': produit.getId()})}}">
+
+					<li id="categ1" class="buttonfx">
+						<div class="cont-txt">
+							<h3>{{produit.nom}}</h3>
+						</div>
+					</li>
+				</a>
+			{% endfor %}
+
+		</ul>
+	</section>
+{% endblock %}

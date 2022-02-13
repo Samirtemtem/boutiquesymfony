@@ -17,14 +17,13 @@ use App\Entity\Client;
 class CategorieController extends AbstractController
 {
     protected CategorieRepository $CategorieRepository;
-    protected ClientRepository $ClientRepository;
     public function __construct(
         CategorieRepository $CategorieRepository,
     ) {
         $this->CategorieRepository = $CategorieRepository;
     }
 
-    #[Route('/categorie', name: 'categorie')]
+    #[Route('/admin/categorie', name: 'categorie')]
     public function index(): Response
     {
         $categories = $this->CategorieRepository->findAll();
@@ -33,7 +32,7 @@ class CategorieController extends AbstractController
             'categories' => $categories
         ]);
     }
-    #[Route('/categorie/ajouter', name: 'ajoutercategorie')]
+    #[Route('/admin/categorie/ajouter', name: 'ajoutercategorie')]
     public function add(Request $request, EntityManagerInterface $manager): Response
     {
         $categorie = new Categorie();
@@ -51,15 +50,13 @@ class CategorieController extends AbstractController
             $manager->flush();
             $this->addFlash("success", "Nouvelle categorie" .   $categorie->getNom()  . " a été crée sous l'id " .   $categorie->getid());
             return ($this->redirectToRoute("categorie"));
-
-            
         }
         return new Response($this->render('categorie/modifier.html.twig', [
             'categorie_form' => $form->createView()
         ]));
     }
 
-    #[Route('categorie/delete/{id}', name: 'deletecategorie')]
+    #[Route('/admin/categorie/delete/{id}', name: 'deletecategorie')]
     public function delete(Request $request, ManagerRegistry $doctrine)
     {
         $routeParams = $request->attributes->get('_route_params');
@@ -71,7 +68,7 @@ class CategorieController extends AbstractController
         $entityManager->flush();
         return ($this->redirectToRoute("categorie"));
     }
-    #[Route('categorie/modify/{id}', name: 'modifycategorie')]
+    #[Route('/admin/categorie/modify/{id}', name: 'modifycategorie')]
     /*
  *
  * *
