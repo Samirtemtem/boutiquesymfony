@@ -50,12 +50,24 @@ class IndexController extends AbstractController
             'produit' => $produit,
         ]);
     }
-    #[Route('/acheterproduit/{id}', name: 'acheterproduit')]
+    #[Route('/Consulterproduit/{id}', name: 'acheterproduit')]
     public function acheterproduit($id, ManagerRegistry $doctrine)
     {
         $produit = $this->ProduitRepository->findBy(array("id" => $id))[0];
-        return $this->render('index/Achatproduit.html.twig', [
+        return $this->render('index/Consulterproduit.html.twig', [
             'produit' => $produit,
         ]);
+    }
+    #[Route('/achatproduit/{id}', name: 'achatproduit')]
+    public function achatproduit($id, ManagerRegistry $doctrine)
+    {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            $produit = $this->ProduitRepository->findBy(array("id" => $id))[0];
+            return $this->render('index/Achatproduit.html.twig', [
+                'produit' => $produit,
+            ]);
+        }
+        dd("redirect to login user");
     }
 }

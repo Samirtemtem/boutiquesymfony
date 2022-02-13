@@ -157,12 +157,13 @@
 			<a href=" {{ path('afficherproduits', {'id': produit.getId()})}}">
 
 				<li id="categ1" class="buttonfx">
-					<h2>Produit :{{produit.nom}}</h2>
-					<h3>Description :
-						{{produit.getDescCourt()}}</h3>
-					<h4>Prix:{{produit.Prix()}}
-					</h4>
-					<a href=" {{ path('acheterproduit', {'id': produit.getId()})}}">acheter</a>
+					<h4>{{produit.nom}}</h4>
+					<h5>
+						{{produit.getDescCourt()}}</h5>
+					<h6>{{produit.Prix()}}
+						TND
+					</h6>
+					<a href=" {{ path('achatproduit', {'id': produit.getId()})}}">acheter</a>
 				</li>
 			</li>
 		</a>
