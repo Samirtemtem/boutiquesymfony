@@ -1,5 +1,6 @@
 {% extends 'index/base.html.twig' %}
-{% block title %}Produits
+{% block title %}
+	{{produit.nom}}
 {% endblock %}
 
 {% block body %}
@@ -150,24 +151,22 @@
 		}
 	</style>
 	<div class="container">
-		<div class="products">
-			{% for produit in produits %}
-				<a href=" {{ path('afficherproduits', {'id': produit.getId()})}}">
 
-					<li id="categ1" class="buttonfx">
-						<h2>Produit :{{produit.nom}}</h2>
-						<h3>Description :
-							{{produit.getDescCourt()}}</h3>
-						<h4>Prix:{{produit.Prix()}}
-						</h4>
-						<a href=" {{ path('acheterproduit', {'id': produit.getId()})}}">acheter</a>
-					</li>
+
+		<div class="products">
+			<a href=" {{ path('afficherproduits', {'id': produit.getId()})}}">
+
+				<li id="categ1" class="buttonfx">
+					<h2>Produit :{{produit.nom}}</h2>
+					<h3>Description :
+						{{produit.getDescCourt()}}</h3>
+					<h4>Prix:{{produit.Prix()}}
+					</h4>
+					<a href=" {{ path('acheterproduit', {'id': produit.getId()})}}">acheter</a>
 				</li>
-			</a>
-		{% endfor %}
+			</li>
+		</a>
 
 	</div>
 	<!-- products -->
-
-
 </div></div><!-- container -->{% endblock %}

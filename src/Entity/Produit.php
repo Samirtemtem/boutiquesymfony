@@ -31,6 +31,9 @@ class Produit
     #[ORM\OneToMany(mappedBy: 'IdProduit', targetEntity: ProduitCommande::class)]
     private $ProduitCommandes;
 
+    #[ORM\Column(type: 'decimal', precision: 5, scale: 2)]
+    private $Prix;
+
     public function __construct()
     {
         $this->ProduitCommandes = new ArrayCollection();
@@ -115,6 +118,18 @@ class Produit
                 $produitCommande->setIdProduit(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPrix(): ?string
+    {
+        return $this->Prix;
+    }
+
+    public function setPrix(string $Prix): self
+    {
+        $this->Prix = $Prix;
 
         return $this;
     }

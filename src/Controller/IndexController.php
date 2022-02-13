@@ -41,4 +41,21 @@ class IndexController extends AbstractController
             'produits' => $produits
         ]);
     }
+
+    #[Route('/produit/{id}', name: 'afficherproduit')]
+    public function afficherproduit($id, ManagerRegistry $doctrine)
+    {
+        $produit = $this->ProduitRepository->findBy(array("Id" => $id));
+        return $this->render('index/produits.html.twig', [
+            'produit' => $produit,
+        ]);
+    }
+    #[Route('/acheterproduit/{id}', name: 'acheterproduit')]
+    public function acheterproduit($id, ManagerRegistry $doctrine)
+    {
+        $produit = $this->ProduitRepository->findBy(array("id" => $id))[0];
+        return $this->render('index/Achatproduit.html.twig', [
+            'produit' => $produit,
+        ]);
+    }
 }
