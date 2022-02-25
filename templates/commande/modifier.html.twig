@@ -6,9 +6,11 @@
 {% form_theme commande_form 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
-	{{ form_start(commande_form) }}
+	{% if is_granted('ROLE_ADMIN') %}
+		{{ form_start(commande_form) }}
 
 
-	{{ form_widget(commande_form)}}
-	{{ form_end(commande_form) }}
+		{{ form_widget(commande_form)}}
+		{{ form_end(commande_form) }}
+	{% endif %}
 {% endblock %}

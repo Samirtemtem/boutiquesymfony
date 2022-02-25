@@ -26,6 +26,9 @@ class Adresse
     #[ORM\Column(type: 'string', length: 255)]
     private $adresse;
 
+    #[ORM\ManyToOne(targetEntity: Clientdebug::class, inversedBy: 'adresses')]
+    private $IdClientDebug;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +78,18 @@ class Adresse
     public function setAdresse(string $adresse): self
     {
         $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getIdClientDebug(): ?ClientDebug
+    {
+        return $this->IdClientDebug;
+    }
+
+    public function setIdClientDebug(?ClientDebug $IdClientDebug): self
+    {
+        $this->IdClientDebug = $IdClientDebug;
 
         return $this;
     }

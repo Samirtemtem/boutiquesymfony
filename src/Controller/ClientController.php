@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Client;
-use App\Form\ClientFormType;
+use App\Entity\Clientdebug;
+use App\Form\ClientdebugFormType;
+use App\Form\RegistrationFormType;
+use App\Repository\ClientdebugRepository;
 use App\Repository\ClientRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -14,10 +16,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ClientController extends AbstractController
 {
-    protected ClientRepository $ClientRepository;
+    protected ClientdebugRepository $ClientRepository;
 
     public function __construct(
-        ClientRepository $ClientRepository,
+        ClientdebugRepository $ClientRepository,
     ) {
         $this->ClientRepository = $ClientRepository;
     }
@@ -52,7 +54,7 @@ class ClientController extends AbstractController
         $routeParams = $request->attributes->get('_route_params');
         $id = $routeParams['id'];
         $client = $this->ClientRepository->find($id);
-        $form = $this->createForm(ClientFormType::class, $client);
+        $form = $this->createForm(App\Controller\RegistrationFormType::class, $client);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $manager = $doctrine->getManager();
@@ -69,8 +71,8 @@ class ClientController extends AbstractController
     #[Route('/admin/client/ajouter', name: 'ajouterclient')]
     public function add(Request $request, EntityManagerInterface $manager): Response
     {
-        $client = new Client();
-        $form = $this->createForm(ClientFormType::class, $client);
+        $client = new Clientdebug();
+        $form = $this->createForm(RegistrationFormType::class, $client);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $exists = $this->ClientRepository->findBy(array("CIN" => $client->getCIN()));

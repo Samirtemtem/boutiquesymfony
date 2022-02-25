@@ -148,7 +148,7 @@
 	</head>
 	<body>
 		{% block navbar%}
-			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+			{% if is_granted('ROLE_ADMIN') %}
 
 				<header id='header' style="position:relative;">
 
@@ -185,8 +185,8 @@
 
 				<br>
 				<br>
-			{% endif %}
-			{% if not(is_granted('IS_AUTHENTICATED_FULLY')) %}
+			{% else %}
+
 				<header id='header' style="position:relative;">
 					<nav>
 						<h1 style="color:white;">

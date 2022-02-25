@@ -4,48 +4,90 @@
 {% endblock %}
 
 {% block body %}
+{% if is_granted('ROLE_ADMIN') %}
+	<div class="container">
+		<h1>Commandes:
+		</h1>
+		<div class="btn btn-info">
 
-<div class="container">
-	<h1>Commandes:
-	</h1>
-	<div class="btn btn-info">
 
+			<a href="{{ path('ajoutercommande')}}" style="text-decoration:none;color:white;">Ajouter une commande</a>
 
-		<a href="{{ path('ajoutercommande')}}" style="text-decoration:none;color:white;">Ajouter une commande</a>
-
+		</div>
 	</div>
-</div>
-{% for message in app.flashes("success") %}
-	<div class="alert alert-success">
-		{{message}}
-	</div>
+	{% for message in app.flashes("success") %}
+		<div class="alert alert-success">
+			{{message}}
+		</div>
 
-{% endfor %}
+	{% endfor %}
 
-<div class="container">
-	<table class="table" border="1">
+	<div class="container">
+		<table class="table" border="1">
+			<tr>
+				<div class="row">
+					<td>
+						<div class="col-">
+							ID
+						</div>
+					</td>
+					<td>
+						<div class="col-">
+
+							IDclient</div>
+					</td>
+					<td>
+						<div class="col-">
+
+							Date
+						</div>
+					</td>
+					<td>
+						<div class="col-">
+
+							Etat
+						</div>
+					</td>
+
+
+				</div>
+			</tr>
+		</td>
+	</tr>
+
+	{% for commande in commandes %}
 		<tr>
 			<div class="row">
 				<td>
 					<div class="col-">
-						ID
+						{{commande.getId()}}
 					</div>
 				</td>
 				<td>
-					<div class="col-">
 
-						IDclient</div>
+					<div class="col-">
+						{{commande.getidclient()}}</div>
 				</td>
 				<td>
-					<div class="col-">
 
-						Date
-					</div>
+					<div class="col-">
+						{{commande.getdate()|date('Y-m-d')}}</div>
+
 				</td>
 				<td>
-					<div class="col-">
 
-						Etat
+					<div class="col-">
+						{{commande.getetat()}}</div>
+				</td>
+				<td>
+					<div class="col-x">
+
+						<a href="{{ path('deletecommande', {'id': commande.getId()}) }}">Supprimer</a>
+
+						<br>
+						<a href="{{ path('modifycommande', {'id': commande.getId()}) }}">modifier</a>
+
+
 					</div>
 				</td>
 
@@ -53,45 +95,4 @@
 			</div>
 		</tr>
 	</td>
-</tr>
-
-{% for commande in commandes %}
-	<tr>
-		<div class="row">
-			<td>
-				<div class="col-">
-					{{commande.getId()}}
-				</div>
-			</td>
-			<td>
-
-				<div class="col-">
-					{{commande.getidclient()}}</div>
-			</td>
-			<td>
-
-				<div class="col-">
-					{{commande.getdate()|date('Y-m-d')}}</div>
-
-			</td>
-			<td>
-
-				<div class="col-">
-					{{commande.getetat()}}</div>
-			</td>
-			<td>
-				<div class="col-x">
-
-					<a href="{{ path('deletecommande', {'id': commande.getId()}) }}">Supprimer</a>
-
-					<br>
-					<a href="{{ path('modifycommande', {'id': commande.getId()}) }}">modifier</a>
-
-
-				</div>
-			</td>
-
-
-		</div>
-	</tr>
-</td></tr>{% endfor %}</table></div>{% endblock %}
+</tr>{% endfor %}</table></div>{% endblock %}{% endif %}

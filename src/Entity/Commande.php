@@ -28,6 +28,9 @@ class Commande
     #[ORM\OneToMany(mappedBy: 'IdCommande', targetEntity: ProduitCommande::class)]
     private $ProduitCommandes;
 
+    #[ORM\ManyToOne(targetEntity: Clientdebug::class, inversedBy: 'commandes')]
+    private $IdClientDebug;
+
     public function __construct()
     {
         $this->ProduitCommandes = new ArrayCollection();
@@ -100,6 +103,18 @@ class Commande
                 $produitCommande->setIdCommande(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIdClientDebug(): ?ClientDebug
+    {
+        return $this->IdClientDebug;
+    }
+
+    public function setIdClientDebug(?ClientDebug $IdClientDebug): self
+    {
+        $this->IdClientDebug = $IdClientDebug;
 
         return $this;
     }
