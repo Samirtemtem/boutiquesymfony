@@ -331,7 +331,14 @@
 										{{ app.user.Nom }}
 										)
 									</a>
+									{% if is_granted("ROLE_ADMIN") %}
+										|
+										<a href="{{ path('dashboard')}}">
+											Panel Admin
+										</a>
+									{% endif %}
 									|
+
 									<a href="{{ path('app_logout') }}">Déconnexion</a>
 								{% else %}
 									<a href="{{ path('app_login') }}">Connexion</a>
