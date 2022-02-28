@@ -4,7 +4,11 @@
 {% endblock %}
 
 {% block body %}
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
 	<style>
+
 		* {
 			box-sizing: border-box;
 		}
@@ -150,24 +154,68 @@
 			background: limegreen;
 		}
 	</style>
-	<div class="container">
+	<div class="row">
+		<section class="col-sm-6">
+			<div>
+				<div class="carousel-inner">
+					<div>
+						<img alt="{{produit.getNom()}}" src="../uploads/{{produit.getNomImage}}">
+					</div>
+
+				</div>
+			</div>
+		</section>
+		<section class="col-sm-6">
+			<div class="list-group">
+
+				<div class="o-container list-group-item">
+					<h3>
+						Prix :
+						{{ produit.getPrix() }}
+						TND</h3>
+				</div>
 
 
-		<div class="products">
-			<a href=" {{ path('afficherproduits', {'id': produit.getId()})}}">
+				<div class="o-container list-group-item">
+					<fieldset>
+						<div class="row">
+							<div class="col-xs-6 col-sm-4 col-md-3 o-spacing--off">
+								<input class="form-control" type="number" id="nbr" pattern="[0-9]*" value="1" min="1">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-6 col-sm-8 col-md-6">
+							<button class="btn btn-block btn-lg btn-primary" id="achat">Acheter</button>
+						</div>
+					</div>
+					<script>
+						document.getElementById("achat").onclick = function () {
+var url = '{{ path("achatproduit", {'id' : produit.getid(), 'qte': 'nbr'}) }}';
+valeur = document.getElementById('nbr').value;
+url = url.replace("nbr", valeur);
 
-				<li id="categ1" class="buttonfx">
-					<h4>{{produit.nom}}</h4>
-					<h5>
-						{{produit.getDescCourt()}}</h5>
-					<h6>{{produit.Prix()}}
-						TND
-					</h6>
-					<a href=" {{ path('achatproduit', {'id': produit.getId()})}}">acheter</a>
-				</li>
-			</li>
-		</a>
+window.location.href = url;
 
-	</div>
-	<!-- products -->
-</div></div><!-- container -->{% endblock %}
+};
+					</script>
+				</fieldset>
+			</div>
+
+
+			<div class="list-group-item">
+				<div>
+					<p>
+						{{produit.getDescCourt()}}
+					</p>
+
+					<p>
+						{{produit.getDescLong()}}
+					</p>
+				</div>
+
+			</div>
+
+		</div>
+	</section>
+</div>{% endblock %}

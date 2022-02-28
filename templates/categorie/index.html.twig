@@ -27,7 +27,7 @@
 		<tr>
 			<div class="row">
 				<td>
-					<div class="col-">
+					<div class="col-" style="width:20px;">
 						ID
 					</div>
 				</td>
@@ -36,7 +36,11 @@
 
 						Nom Categorie</div>
 				</td>
-
+				<td>
+					<div class="col-">
+						Image Categorie
+					</div>
+				</td>
 			</div>
 		</tr>
 	</td>
@@ -46,7 +50,8 @@
 	<tr>
 		<div class="row">
 			<td>
-				<div class="col-">
+				<div class="col-" style="width:20px;">
+
 					{{categorie.getId()}}
 				</div>
 			</td>
@@ -56,18 +61,22 @@
 					{{categorie.getNom()}}</div>
 			</td>
 			<td>
-				<div class="col-x">
 
-					<a href="{{ path('deletecategorie', {'id': categorie.getId()}) }}">Supprimer</a>
-
-					<br>
-					<a href="{{ path('modifycategorie', {'id': categorie.getId()}) }}">modifier</a>
-
-
-				</div>
+				<div class="col-">
+					<img src="../uploads/{{ categorie.getNomImage() }}" width="100" height="100" alt="photo"></div>
 			</td>
-
-
 		</div>
 	</tr>
-</td></tr>{% endfor %}</table></div>{% endblock %}
+</td>
+
+<td>
+	<div class="col-x">
+
+		<a href="{{ path('deletecategorie', {'id': categorie.getId()}) }}">Supprimer</a>
+
+		<br>
+		<a href="{{ path('modifycategorie', {'id': categorie.getId()}) }}">modifier</a>
+
+
+	</div>
+</td></div></tr></td></tr>{% endfor %}</table></div>{% endblock %}

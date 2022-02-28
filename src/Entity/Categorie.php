@@ -19,6 +19,9 @@ class Categorie
     #[ORM\OneToMany(mappedBy: 'Categorie', targetEntity: Produit::class)]
     private $Produits;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $Nom_Image;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -55,5 +58,17 @@ class Categorie
     public function __toString()
     {
         return $this->getNom();
+    }
+
+    public function getNomImage(): ?string
+    {
+        return $this->Nom_Image;
+    }
+
+    public function setNomImage(string $Nom_Image): self
+    {
+        $this->Nom_Image = $Nom_Image;
+
+        return $this;
     }
 }

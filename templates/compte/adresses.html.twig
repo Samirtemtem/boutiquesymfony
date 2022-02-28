@@ -1,0 +1,84 @@
+{% extends 'index/base.html.twig' %}
+
+{% block title %}Hello CompteController!
+{% endblock %}
+
+
+{% block body %}
+<div class="container">
+	<h1>Vos Adresses :
+		<h6>
+			(Vous devez avoir au minimum une adresse pour passer une commande)
+		</h6>
+	</h1>
+	<div class="btn btn-info">
+
+
+		<a href="{{ path('ajoutadresseclient')}}" style="text-decoration:none;color:white;">Ajouter une adresse</a>
+
+	</div>
+
+	<div class="container">
+		<table class="table" border="1">
+			<tr>
+				<div class="row">
+					<td>
+						<div class="col-">
+							ID
+						</div>
+					</td>
+					<td>
+						<div class="col-">
+
+							Code Postale
+						</div>
+					</td>
+					<td>
+						<div class="col-">
+							Adresse
+						</div>
+					</td>
+					<td>
+						<div class="col-">
+							Par defaut
+						</div>
+					</td>
+
+
+				</div>
+			</tr>
+		</td>
+	</tr>
+
+	{% for adresse in adresses %}
+		<tr>
+			<div class="row">
+				<td>
+					<div class="col-">
+						{{adresse.getId()}}
+					</div>
+				</td>
+				<td>
+
+					<div class="col-">
+						{{adresse.getcodepostale()}}</div>
+				</td>
+				<td>
+					<div class="col-">
+						{{adresse.getpardefaut()}}</div>
+
+				</td>
+				<td>
+					<div class="col-x">
+
+						<a href="{{ path('deletecommande', {'id': commande.getId()}) }}">Supprimer</a>
+
+
+					</div>
+				</td>
+
+
+			</div>
+		</tr>
+	</td>
+</tr>{% endfor %}</table></div>{% endblock %}

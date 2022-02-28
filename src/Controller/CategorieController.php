@@ -46,6 +46,15 @@ class CategorieController extends AbstractController
                     ["Error" => "Categorie deja existe",     "categorie_form" => $form->createView()]
                 ));
             }
+            $uploadedFile = $form['Nom_Image']->getData();
+            $destination = $this->getParameter('kernel.project_dir') . '/public/uploads';
+            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+            $uploadedFile->move(
+                $destination,
+                $newFilename
+            );
+            $categorie->setNomImage($newFilename);
             $manager->persist($categorie);
             $manager->flush();
             $this->addFlash("success", "Nouvelle categorie" .   $categorie->getNom()  . " a été crée sous l'id " .   $categorie->getid());

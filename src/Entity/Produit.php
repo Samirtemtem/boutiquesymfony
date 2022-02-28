@@ -34,6 +34,9 @@ class Produit
     #[ORM\Column(type: 'decimal', precision: 5, scale: 2)]
     private $Prix;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $Nom_Image;
+
     public function __construct()
     {
         $this->ProduitCommandes = new ArrayCollection();
@@ -130,6 +133,18 @@ class Produit
     public function setPrix(string $Prix): self
     {
         $this->Prix = $Prix;
+
+        return $this;
+    }
+
+    public function getNomImage(): ?string
+    {
+        return $this->Nom_Image;
+    }
+
+    public function setNomImage(string $Nom_Image): self
+    {
+        $this->Nom_Image = $Nom_Image;
 
         return $this;
     }

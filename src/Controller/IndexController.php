@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
-use App\Repository\CategorieRepository;
+use App\Repository\AdresseRepository;
 use App\Repository\ProduitRepository;
+use App\Repository\CategorieRepository;
+use App\Repository\ClientdebugRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,12 +15,15 @@ class IndexController extends AbstractController
 {
     protected CategorieRepository $CategorieRepository;
     protected ProduitRepository $ProduitRepository;
+    protected AdresseRepository $adresseRepository;
     public function __construct(
         ProduitRepository $ProduitRepository,
         CategorieRepository $CategorieRepository,
+        AdresseRepository $adresseRepository
     ) {
         $this->ProduitRepository = $ProduitRepository;
         $this->CategorieRepository = $CategorieRepository;
+        $this->adresseRepository = $adresseRepository;
     }
 
     #[Route('/', name: 'index')]
@@ -50,7 +55,7 @@ class IndexController extends AbstractController
             'produit' => $produit,
         ]);
     }
-    #[Route('/Consulterproduit/{id}', name: 'acheterproduit')]
+    #[Route('/Consulterproduit/{id}', name: 'consulterproduit')]
     public function acheterproduit($id, ManagerRegistry $doctrine)
     {
         $produit = $this->ProduitRepository->findBy(array("id" => $id))[0];
@@ -58,16 +63,22 @@ class IndexController extends AbstractController
             'produit' => $produit,
         ]);
     }
-    #[Route('/achatproduit/{id}', name: 'achatproduit')]
-    public function achatproduit($id, ManagerRegistry $doctrine)
+    #[Route('/achatproduit/{id}?qte={qte}', name: 'achatproduit')]
+    public function achatproduit($id, $qte)
     {
         $securityContext = $this->container->get('security.authorization_checker');
         if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            $produit = $this->ProduitRepository->findBy(array("id" => $id))[0];
-            return $this->render('index/Achatproduit.html.twig', [
-                'produit' => $produit,
-            ]);
+            $client = $this->getUser();
+            $adresses = $this->adresseRepository->FindBy(array("IdClientDebug" => $client));
+            if ($adresses) {
+                $produit = $this->ProduitRepository->findBy(array("id" => $id))[0];
+                return $this->render('index/Achatproduit.html.twig', [
+                    'produit' => $produit,
+                    'adresses' => $adresses
+                ]);
+            }
+            return  $this->forward('App\Controller\CompteController::adresses');
         }
-        dd("redirect to login user");
+        return $this->forward('App\Controller\SecurityController::app_login');
     }
 }

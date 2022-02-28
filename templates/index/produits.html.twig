@@ -152,17 +152,14 @@
 	<div class="container">
 		<div class="products">
 			{% for produit in produits %}
-				<a href=" {{ path('afficherproduits', {'id': produit.getId()})}}">
-
-					<li id="categ1" class="buttonfx">
+				<a href=" {{ path('consulterproduit', {'id': produit.getId()})}}">
+					<li style="background-image:url('../uploads/{{produit.getNomImage()}}');" class=" buttonfx">
 						<h3>{{produit.nom}}</h3>
 						<h4>
 							{{produit.getDescCourt()}}</h4>
 						<h5>{{produit.Prix()}}
 							TND
 						</h5>
-
-						<a href=" {{ path('acheterproduit', {'id': produit.getId()})}}">acheter</a>
 					</li>
 				</li>
 			</a>
@@ -170,6 +167,4 @@
 
 	</div>
 	<!-- products -->
-
-
 </div></div><!-- container -->{% endblock %}

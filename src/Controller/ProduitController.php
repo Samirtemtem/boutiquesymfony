@@ -50,6 +50,15 @@ class ProduitController extends AbstractController
                     ]
                 ));
             }
+            $uploadedFile = $form['Nom_Image']->getData();
+            $destination = $this->getParameter('kernel.project_dir') . '/public/uploads';
+            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+            $uploadedFile->move(
+                $destination,
+                $newFilename
+            );
+            $produit->setNomImage($newFilename);
             $manager->persist($produit);
             $manager->flush();
             $this->addFlash("success", "Nouveau Produit " . $produit->getNom() . " a été crée sous l'id " . $produit->getid());

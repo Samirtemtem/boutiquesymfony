@@ -40,14 +40,6 @@
 			margin: auto;
 		}
 
-		#categ1 {
-			background-image: url('https://www.dropbox.com/s/sz7d3pv0anrioxg/handmade-4926871_640.jpg?raw=1');
-		}
-
-		#categ2 {
-			background-image: url('https://www.dropbox.com/s/a611a08nsmx0c9a/22.jpg?raw=1');
-		}
-
 		.slidupCont {
 			position: relative;
 			height: 25vh;
@@ -152,19 +144,15 @@
 		}
 	</style>
 	<section class="categories">
-		<h2>Shop By Category</h2>
+		<h2>Consulter par categorie</h2>
 		<ul>
 			{% for categorie in categories %}
 				<a href=" {{ path('afficherproduits', {'id': categorie.getId()})}}">
 
-					<li id="categ1" class="buttonfx">
-						<div class="cont-txt">
-							<h3>{{categorie.nom}}</h3>
-						</div>
-					</li>
-				</a>
-			{% endfor %}
+					<li style="background-image:url('../uploads/{{categorie.getNomImage()}}');" class=" buttonfx">{{categorie.nom}}</li>
+				</li>
+			</a>
+		{% endfor %}
 
-		</ul>
-	</section>
-{% endblock %}
+	</ul>
+</section>{% endblock %}

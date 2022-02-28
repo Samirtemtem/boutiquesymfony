@@ -2,29 +2,27 @@
 
 namespace App\Form;
 
-use App\Entity\Categorie;
+use App\Entity\Adresse;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class CategorieFormType extends AbstractType
+class AdresseFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Nom')
-            ->add('Nom_Image', FileType::class, [
-                'mapped' => false
-            ])
-            ->add('Valider', SubmitType::class);
+            ->add('CodePostale')
+            ->add('ParDefaut')
+            ->add('adresse')
+            ->add("Ajouter", SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Categorie::class,
+            'data_class' => Adresse::class,
         ]);
     }
 }
