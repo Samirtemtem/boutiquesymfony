@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Client;
 use App\Entity\Commande;
 use App\Entity\Categorie;
+use App\Entity\Clientdebug;
 use App\Entity\ProduitCommande;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,7 +20,7 @@ class CommandeFormType extends AbstractType
         $builder
             ->add('Date')
             ->add('Etat')
-            ->add('IdClient', EntityType::class, ['class' => Client::class])
+            ->add('IdClientDebug', EntityType::class, ['class' => Clientdebug::class])
             // ->add('ProduitCommande', EntityType::class, ['class' => ProduitCommande::class])
             ->Add("Ajouter", SubmitType::class);
     }

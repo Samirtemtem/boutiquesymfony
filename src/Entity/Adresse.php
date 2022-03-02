@@ -12,11 +12,6 @@ class Adresse
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
-
-    #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'adresses')]
-    #[ORM\JoinColumn(nullable: false)]
-    private $IdClient;
-
     #[ORM\Column(type: 'string', length: 10)]
     private $CodePostale;
 
@@ -34,18 +29,7 @@ class Adresse
         return $this->id;
     }
 
-    public function getIdClient(): ?Client
-    {
-        return $this->IdClient;
-    }
-
-    public function setIdClient(?Client $IdClient): self
-    {
-        $this->IdClient = $IdClient;
-
-        return $this;
-    }
-
+    
     public function getCodePostale(): ?string
     {
         return $this->CodePostale;

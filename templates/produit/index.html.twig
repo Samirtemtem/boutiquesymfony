@@ -106,10 +106,11 @@
 			<td>
 				<div class="col-x">
 
-					<a href="{{ path('deleteproduit', {'id': produit.getId()}) }}">Supprimer</a>
+					<a class="btn btn-danger" href=" {{ path('deleteproduit', {'id': produit.getId()} ) }}">Supprimer</a>
 
 					<br>
-					<a href="{{ path('modifyproduit', {'id': produit.getId()}) }}">modifier</a>
+					<br>
+					<a class="btn btn-secondary" href=" {{ path('modifyproduit', {'id': produit.getId()} ) }}">modifier</a>
 
 
 				</div>

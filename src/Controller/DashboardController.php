@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\CategorieRepository;
-use App\Repository\ClientRepository;
+use App\Repository\ClientdebugRepository;
 use App\Repository\ProduitRepository;
 use App\Repository\CommandeRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,13 +12,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DashboardController extends AbstractController
 {
-    protected ClientRepository $ClientRepository;
+    protected ClientdebugRepository $ClientRepository;
     protected ProduitRepository $ProduitRepository;
     protected CommandeRepository $CommandeRepository;
     protected CategorieRepository $CategorieRepository;
 
     public function __construct(
-        ClientRepository $ClientRepository,
+        ClientdebugRepository $ClientRepository,
         ProduitRepository $ProduitRepository,
         CommandeRepository $CommandeRepository,
         CategorieRepository $categorieRepository
@@ -36,7 +36,8 @@ class DashboardController extends AbstractController
             'countClients' => $this->ClientRepository->findAll(),
             'countProduits' => $this->ProduitRepository->findAll(),
             'countCommandes' => $this->CommandeRepository->findAll(),
-            'countCategories' => $this->CategorieRepository->findAll()
+            'countCategories' => $this->CategorieRepository->findAll(),
+            "Commandesnonconf" => $this->CommandeRepository->findby(array("Etat" => false))
         ]);
     }
 }

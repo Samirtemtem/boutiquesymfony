@@ -1,0 +1,97 @@
+{% extends 'index/base.html.twig' %}
+
+{% block title %}Hello CompteController!
+{% endblock %}
+
+
+{% block body %}
+	<div class="container">
+		<h1>Votre commande numéro
+			{{commande.getid()}}:
+		</h1>
+		<div class="container">
+			<table class="table" border="1">
+				<tr>
+					<div class="row">
+						<td>
+							<div class="col-">
+								ID
+							</div>
+						</td>
+						<td>
+							<div class="col-">
+
+								Nom Produit</div>
+						</td>
+						<td>
+							<div class="col-">
+
+								Description long
+							</div>
+						</td>
+						<td>
+							<div class="col-">
+
+								Description courte
+							</div>
+						</td>
+						<td>
+							<div class="col-">
+								Categorie
+							</div>
+						</td>
+						<td>
+							<div class="col-">
+								Image produit
+
+							</div>
+						</td>
+
+
+					</div>
+				</tr>
+			</td>
+		</tr>
+
+		<tr>
+			<div class="row">
+				<td>
+					<div class="col-">
+						{{produit.getId()}}
+					</div>
+				</td>
+				<td>
+
+					<div class="col-">
+						{{produit.getNom()}}</div>
+				</td>
+				<td>
+
+					<div class="col-">
+						{{produit.getDescLong()}}</div>
+				</td>
+				<td>
+
+					<div class="col-">
+						{{produit.getDescCourt()}}</div>
+				</td>
+				<td>
+
+					<div class="col-">
+						{{produit.getCategorie().getNom()}}</div>
+				</td>
+				<td>
+
+					<div class="col-">
+						<img src="/uploads/{{produit.getNomImage()}}" width="100" height="100" alt="photo"></div>
+				</td>
+
+				<td>
+					<div class="col-x"></div>
+				</td>
+
+
+			</div>
+		</tr>
+	</td>
+</tr></table></div>{% endblock %}

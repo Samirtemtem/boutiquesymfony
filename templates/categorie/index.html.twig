@@ -6,8 +6,12 @@
 {% block body %}
 
 <div class="container">
-	<h1>Clients:
+	<h1>Categories:
 	</h1>
+	{% if error is defined %}
+
+		<div class="alert alert-danger">Le categorie contient des produits</div>
+	{% endif %}
 	<div class="btn btn-info">
 
 
@@ -72,10 +76,11 @@
 <td>
 	<div class="col-x">
 
-		<a href="{{ path('deletecategorie', {'id': categorie.getId()}) }}">Supprimer</a>
+		<a class="btn btn-danger" href="{{ path('deletecategorie', {'id': categorie.getId()}) }}">Supprimer</a>
+
 
 		<br>
-		<a href="{{ path('modifycategorie', {'id': categorie.getId()}) }}">modifier</a>
+		<a class="btn btn-info" href="{{ path('modifycategorie', {'id': categorie.getId()}) }}">modifier</a>
 
 
 	</div>

@@ -10,6 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -27,7 +28,8 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false
-            ]);
+            ])
+            ->add("Valider", SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

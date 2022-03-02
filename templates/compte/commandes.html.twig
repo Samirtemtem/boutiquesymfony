@@ -9,6 +9,13 @@
 	<h1>Vos commandes:
 	</h1>
 	<div class="container">
+		{% for message in app.flashes("success") %}
+			<div class="alert alert-success">
+				{{message}}
+			</div>
+
+		{% endfor %}
+
 		<table class="table" border="1">
 			<tr>
 				<div class="row">
@@ -51,14 +58,20 @@
 
 				</td>
 				<td>
-
 					<div class="col-">
-						{{commande.getetat()}}</div>
+						{% if (commande.getetat()) %}
+							Livré
+						{% else %}
+							Non Livré
+						{% endif %}
+					</div>
 				</td>
 				<td>
 					<div class="col-x">
 
-						<a href="{{ path('deletecommande', {'id': commande.getId()}) }}">Supprimer</a>
+						<a href="{{ path('supprimercommande', {'id': commande.getId()}) }}">Supprimer</a>
+
+						<a href="{{ path('comptecommande', {'id': commande.getId()}) }}">Voir</a>
 
 
 					</div>

@@ -14,11 +14,6 @@ class Commande
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
-
-    #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'Commandes')]
-    #[ORM\JoinColumn(nullable: false)]
-    private $IdClient;
-
     #[ORM\Column(type: 'date')]
     private $Date;
 
@@ -41,17 +36,7 @@ class Commande
         return $this->id;
     }
 
-    public function getIdClient(): ?Client
-    {
-        return $this->IdClient;
-    }
 
-    public function setIdClient(?Client $IdClient): self
-    {
-        $this->IdClient = $IdClient;
-
-        return $this;
-    }
 
     public function getDate(): ?\DateTimeInterface
     {

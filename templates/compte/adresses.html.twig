@@ -65,13 +65,25 @@
 				</td>
 				<td>
 					<div class="col-">
-						{{adresse.getpardefaut()}}</div>
+						{{adresse.getadresse()}}
+					</div>
+
+				</td>
+
+				<td>
+					<div class="col-">
+						{% if (adresse.getpardefaut()) %}
+
+							Oui
+						{% else %}
+							Non
+						{% endif %}
+					</div>
 
 				</td>
 				<td>
 					<div class="col-x">
-
-						<a href="{{ path('deletecommande', {'id': commande.getId()}) }}">Supprimer</a>
+						<a class="btn btn-danger" href=" {{ path('deleteadresse', {'id': adresse.getId()} ) }}">Supprimer</a>
 
 
 					</div>

@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Commande;
+use App\Entity\ProduitCommande;
 use App\Form\CommandeFormType;
 use App\Repository\CommandeRepository;
+use App\Repository\ProduitCommandeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,11 +16,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CommandeController extends AbstractController
 {
+    protected ProduitCommandeRepository $produitsCommande;
     protected CommandeRepository $CommandeRepository;
 
     public function __construct(
+        ProduitCommandeRepository $produitsCommande,
         CommandeRepository $commandeRepository,
     ) {
+        $this->produitsCommande = $produitsCommande;
         $this->CommandeRepository = $commandeRepository;
     }
     #[Route('/admin/commande', name: 'commande')]
@@ -73,7 +78,9 @@ class CommandeController extends AbstractController
         $routeParams = $request->attributes->get('_route_params');
         $id = $routeParams['id'];
         $commande = $this->CommandeRepository->find($id);
+        $produitCommande = $this->produitsCommande->findby(array("IdCommande" => $commande))[0];
         $entityManager = $doctrine->getManager();
+        $entityManager->remove($produitCommande);
         $entityManager->remove($commande);
         $entityManager->flush();
         return ($this->index());

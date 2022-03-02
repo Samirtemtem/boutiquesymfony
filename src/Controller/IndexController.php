@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use DateTime;
+use App\Entity\Commande;
+use App\Entity\ProduitCommande;
 use App\Repository\AdresseRepository;
 use App\Repository\ProduitRepository;
 use App\Repository\CategorieRepository;
-use App\Repository\ClientdebugRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -64,7 +67,7 @@ class IndexController extends AbstractController
         ]);
     }
     #[Route('/achatproduit/{id}?qte={qte}', name: 'achatproduit')]
-    public function achatproduit($id, $qte)
+    public function achatproduit($id, $qte, EntityManagerInterface $manager)
     {
         $securityContext = $this->container->get('security.authorization_checker');
         if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
@@ -72,13 +75,25 @@ class IndexController extends AbstractController
             $adresses = $this->adresseRepository->FindBy(array("IdClientDebug" => $client));
             if ($adresses) {
                 $produit = $this->ProduitRepository->findBy(array("id" => $id))[0];
-                return $this->render('index/Achatproduit.html.twig', [
-                    'produit' => $produit,
-                    'adresses' => $adresses
-                ]);
+                $commande = new Commande();
+                $commande->setDate(new DateTime());
+                $commande->setIdClientDebug($client);
+                $commande->setEtat(false);
+                $produitCommande = new ProduitCommande();
+                $produitCommande->setIdCommande($commande);
+                $produitCommande->setIdProduit($produit);
+                $produitCommande->setQteCommande($qte);
+                $produitCommande->setPrixUnitaire($produit->getPrix());
+                $produitCommande->setPrixTotale($produit->getPrix() * $qte);
+                $commande->addProduitCommande($produitCommande);
+                $manager->persist($commande);
+                $manager->persist($produitCommande);
+                $manager->flush();
+                $this->addFlash("success", "Votre commande est en cours d'étre envoyé");
+                return  $this->forward('App\Controller\CompteController::commandes');
             }
             return  $this->forward('App\Controller\CompteController::adresses');
         }
-        return $this->forward('App\Controller\SecurityController::app_login');
+        return $this->forward('App\Controller\SecurityController::login');
     }
 }

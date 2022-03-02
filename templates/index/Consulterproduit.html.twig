@@ -180,7 +180,11 @@
 					<fieldset>
 						<div class="row">
 							<div class="col-xs-6 col-sm-4 col-md-3 o-spacing--off">
-								<input class="form-control" type="number" id="nbr" pattern="[0-9]*" value="1" min="1">
+
+								<input class="form-control" style="display:inline" type="number" id="nbr" pattern="[0-9]*" value="1" min="1">
+								<br>
+								<span style="display:inline">Quantité</span>
+
 							</div>
 						</div>
 					</div>
@@ -194,9 +198,7 @@
 var url = '{{ path("achatproduit", {'id' : produit.getid(), 'qte': 'nbr'}) }}';
 valeur = document.getElementById('nbr').value;
 url = url.replace("nbr", valeur);
-
 window.location.href = url;
-
 };
 					</script>
 				</fieldset>

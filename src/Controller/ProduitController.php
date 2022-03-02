@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Produit;
 use App\Form\ProduitFormType;
+use App\Repository\CommandeRepository;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -15,11 +16,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ProduitController extends AbstractController
 {
     protected ProduitRepository $ProduitRepository;
-
+    protected CommandeRepository $CommandeRepository;
     public function __construct(
         ProduitRepository $ProduitRepository,
+        CommandeRepository $CommandeRepository
     ) {
         $this->ProduitRepository = $ProduitRepository;
+        $this->CommandeRepository = $CommandeRepository;
     }
 
     #[Route('admin/produit', name: 'produit')]
@@ -81,6 +84,8 @@ class ProduitController extends AbstractController
         $routeParams = $request->attributes->get('_route_params');
         $id = $routeParams['id'];
         $produit = $this->ProduitRepository->find($id);
+        //$commande = $this->CommandeRepository->findby(array("ProduitCommandes" => $produit->getProduitCommandes()));
+        //dd($commande);
         $entityManager = $doctrine->getManager();
         $entityManager->remove($produit);
         $entityManager->flush();
